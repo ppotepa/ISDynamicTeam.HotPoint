@@ -3,7 +3,7 @@ using System;
 
 namespace ISDynamicTeam.HotPoint.WebAPI.Handlers
 {
-    public abstract class GetCommandHandler : Handler
+    public abstract class GetCommandHandler : CommandHandler
     {
         public GetCommandHandler(ICommand command) : base(command)
         {

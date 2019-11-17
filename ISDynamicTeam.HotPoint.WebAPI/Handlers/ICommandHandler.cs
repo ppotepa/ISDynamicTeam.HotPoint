@@ -2,7 +2,7 @@
 
 namespace ISDynamicTeam.HotPoint.WebAPI.Handlers
 {
-    public interface IHandler
+    public interface ICommandHandler
     {
         ICommandResult Handle();
     }

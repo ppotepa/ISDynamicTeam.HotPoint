@@ -3,7 +3,7 @@ using System;
 
 namespace ISDynamicTeam.HotPoint.WebAPI.Handlers
 {
-    public abstract class Handler : IHandler, IDisposable
+    public abstract class CommandHandler : ICommandHandler, IDisposable
     {
 
         public abstract ICommandResult Handle();
@@ -22,7 +22,7 @@ namespace ISDynamicTeam.HotPoint.WebAPI.Handlers
             disposed = true;
         }
         bool disposed = false;
-        public Handler(ICommand command)
+        public CommandHandler(ICommand command)
         {
             this.command = command;
         }

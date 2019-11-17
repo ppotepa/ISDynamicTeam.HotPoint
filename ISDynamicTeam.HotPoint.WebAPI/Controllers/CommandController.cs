@@ -40,7 +40,7 @@ namespace ISDynamicTeam.HotPoint.WebAPI.Controllers
 
             return await Task.Run(() =>
             {
-                Handler handler = (Handler)Activator.CreateInstance(routedType, new object[] { (ICommand)deserializedCommand });                
+                CommandHandler handler = (CommandHandler)Activator.CreateInstance(routedType, new object[] { (ICommand)deserializedCommand });                
                 ICommandResult commandResult = handler.Handle();
                 handler.Dispose();
                 if (((Command)deserializedCommand).CompressResult)
