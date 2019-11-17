@@ -9,8 +9,4 @@
     <ProjectReference Include="..\ISDynamicTeam.HotPoint.DataLayer\ISDynamicTeam.HotPoint.DataLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Handlers\" />
-  </ItemGroup>
-
 </Project>
