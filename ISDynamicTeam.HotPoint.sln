@@ -5,6 +5,14 @@ VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISDynamicTeam.HotPoint.WebAPI", "ISDynamicTeam.HotPoint.WebAPI\ISDynamicTeam.HotPoint.WebAPI.csproj", "{C109AEF6-D7AE-4A08-9659-7A7FB41FFD94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISDynamicTeam.HotPoint.Server", "ISDynamicTeam.HotPoint.Server\ISDynamicTeam.HotPoint.Server.csproj", "{1BE2E3E6-AF2D-4F80-B2BB-7BDE6E85EB48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISDynamicTeam.HotPoint.Utils", "ISDynamicTeam.HotPoint.Utils\ISDynamicTeam.HotPoint.Utils.csproj", "{0B9A9BCA-6722-4769-9AAB-3430988BCB37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISDynamicTeam.HotPoint.Common", "ISDynamicTeam.HotPoint.Common\ISDynamicTeam.HotPoint.Common.csproj", "{D3E59DFD-B0D6-4013-A571-0AD139000378}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISDynamicTeam.HotPoint.DataLayer", "ISDynamicTeam.HotPoint.DataLayer\ISDynamicTeam.HotPoint.DataLayer.csproj", "{8B89B66A-9181-4A4D-9029-7554BE92556F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,22 @@ Global
 		{C109AEF6-D7AE-4A08-9659-7A7FB41FFD94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C109AEF6-D7AE-4A08-9659-7A7FB41FFD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C109AEF6-D7AE-4A08-9659-7A7FB41FFD94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BE2E3E6-AF2D-4F80-B2BB-7BDE6E85EB48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BE2E3E6-AF2D-4F80-B2BB-7BDE6E85EB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BE2E3E6-AF2D-4F80-B2BB-7BDE6E85EB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BE2E3E6-AF2D-4F80-B2BB-7BDE6E85EB48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B9A9BCA-6722-4769-9AAB-3430988BCB37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B9A9BCA-6722-4769-9AAB-3430988BCB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B9A9BCA-6722-4769-9AAB-3430988BCB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B9A9BCA-6722-4769-9AAB-3430988BCB37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3E59DFD-B0D6-4013-A571-0AD139000378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3E59DFD-B0D6-4013-A571-0AD139000378}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3E59DFD-B0D6-4013-A571-0AD139000378}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3E59DFD-B0D6-4013-A571-0AD139000378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B89B66A-9181-4A4D-9029-7554BE92556F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B89B66A-9181-4A4D-9029-7554BE92556F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B89B66A-9181-4A4D-9029-7554BE92556F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B89B66A-9181-4A4D-9029-7554BE92556F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,14 +1,12 @@
-﻿using ISDynamicTeam.HotPoint.WebAPI.Commands;
-using ISDynamicTeam.HotPoint.WebAPI.Const;
-using ISDynamicTeam.HotPoint.WebAPI.Extensions;
-using ISDynamicTeam.HotPoint.WebAPI.Handlers;
-using ISDynamicTeam.HotPoint.WebAPI.Handlers.Get;
-using ISDynamicTeam.HotPoint.WebAPI.Utils;
+﻿using ISDynamicTeam.HotPoint.Server;
+using ISDynamicTeam.HotPoint.Server.Commands;
+using ISDynamicTeam.HotPoint.Server.Extensions;
+using ISDynamicTeam.HotPoint.Server.Handlers;
+using ISDynamicTeam.HotPoint.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ISDynamicTeam.HotPoint.WebAPI.Controllers
@@ -23,6 +21,7 @@ namespace ISDynamicTeam.HotPoint.WebAPI.Controllers
             new Dictionary<Type, Type>
             {
                  {  typeof(GetRandomNumberOfGuidsCommand), typeof(GetRandomNumberOfGuidsCommandHandler)},
+                 {  typeof(GetRestaurantsByNameCommand), typeof(GetRestaurantsByNameCommandHandler)},
             };
 
 
@@ -46,7 +45,8 @@ namespace ISDynamicTeam.HotPoint.WebAPI.Controllers
                 if (((Command)deserializedCommand).CompressResult)
                 {
                     byte[] byteArray = commandResult.ToByteArray();
-                    return ObjectCompressor.Compress(byteArray);
+                    object compressed = ObjectCompressor.Compress(byteArray);
+                    return compressed;
                 }
                 return commandResult;
             });

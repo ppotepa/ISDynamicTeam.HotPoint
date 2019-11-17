@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ISDynamicTeam.HotPoint.Common\ISDynamicTeam.HotPoint.Common.csproj" />
+    <ProjectReference Include="..\ISDynamicTeam.HotPoint.DataLayer\ISDynamicTeam.HotPoint.DataLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Handlers\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+{
+  "name": "isdynamicteam.hotpoint.mobileapp",
+  "version": "0.1.0",
+  "description": "GirlsInTech ISDynamicTeam MobileApp",
+  "main": "index.js",
+  "dependencies": {
+    "appcenter": "^2.6.0",
+    "appcenter-crashes": "^2.6.0",
+    "appcenter-analytics": "^2.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ISDynamicTeam",
+  "license": "ISC",
+  "keywords": [
+    "Hackathon"
+  ]
+}
