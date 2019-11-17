@@ -1,37 +1,45 @@
-﻿using System;
+﻿using ISDynamicTeam.HotPoint.Server.Commands;
+using ISDynamicTeam.HotPoint.Server.Handlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ISDynamicTeam.HotPoint.WebAPI.Routers
 {
-    public class CommandRouter
+    public sealed class CommandRouter
     {
-        private static IDictionary<Type, Type> RoutingDictionary = new Dictionary<Type, Type>();
+        private static  CommandRouter instance = null;
+        private static IDictionary<Type, Type> routingDictionary = new Dictionary<Type, Type>();
         public CommandRouter()
         {
-            if (instantiated == true) throw new InvalidProgramException("CommandRouter already instantiated.");
-            else instantiated = true;
+            if (instance == null) instance = this;
+            else throw new InvalidProgramException("CommandRouter already instantiated.");
         }
-
-        private static CommandRouter _instance = new CommandRouter();
-        public CommandRouter Register(Type commandType, Type handlerType)
+        
+        public CommandRouter Register<T, U>(Type commandType, Type handlerType) where T:ICommand where U:ICommandHandler
         {
-            RoutingDictionary.Add(commandType, handlerType);
+            routingDictionary.Add(commandType, handlerType);
             return this;
         }
 
-        public static Type GetHandler(string commandName)
+        public Type GetHandler<T>(string commandName) where T : ICommandHandler
         {
-            return RoutingDictionary.Where(key => key.Key.Name.StartsWith(commandName)).FirstOrDefault().Value;
+            return routingDictionary
+                .Where(key => key.Key.Name.StartsWith(commandName))
+                .FirstOrDefault()
+                .Value;
         }
 
-        public static Type GetCommandType(string commandName)
+        public Type GetCommandType(string commandName)
         {
-            return RoutingDictionary.Where(key => key.Key.Name.StartsWith(commandName)).FirstOrDefault().Key; 
+            return routingDictionary
+                .Where(key => key.Key.Name.StartsWith(commandName))
+                .FirstOrDefault()
+                .Key; 
         }
 
-        private static bool instantiated = false;
+        
 
     }
 }

@@ -16,12 +16,13 @@ namespace ISDynamicTeam.HotPoint.WebAPI.Controllers
     [ApiController]
     public class CommandController : ControllerBase
     {
-        private static CommandRouter CommandRouter = new CommandRouter();
 
-        public static void InitializeRouter() {
+        private static CommandRouter CommandRouter = new CommandRouter();
+        public static void InitializeRouter()
+        {
             CommandRouter
-                .Register(typeof(GetRandomNumberOfGuidsCommand),typeof(GetRestaurantsByNameCommandHandler))
-                .Register(typeof(GetRestaurantsByNameCommand),typeof(GetRestaurantsByNameCommandHandler));
+                .Register<ICommand, ICommandHandler>(typeof(GetRandomNumberOfGuidsCommand), typeof(GetRandomNumberOfGuidsCommandHandler))
+                .Register<ICommand, ICommandHandler>(typeof(GetRestaurantsByNameCommand),   typeof(GetRestaurantsByNameCommandHandler));
         }
 
         [HttpGet]
@@ -32,15 +33,15 @@ namespace ISDynamicTeam.HotPoint.WebAPI.Controllers
             string commandName = cmd.GetValue("CommandName").Value<string>();
 
             Type commandType =  CommandRouter.GetCommandType(commandName);
-            Type commandHandler = CommandRouter.GetHandler(commandName);
+            Type commandHandler = CommandRouter.GetHandler<CommandHandler>(commandName);
 
             object deserializedCommand = cmd.ToObject(commandType);
             return await Task.Run(() =>
             {
-                CommandHandler handler = Activator.CreateInstance(commandHandler, new object[] { (ICommand)deserializedCommand }) as CommandHandler;                
+                CommandHandler handler = Activator.CreateInstance(commandHandler, new object[] { deserializedCommand }) as CommandHandler;
                 ICommandResult commandResult = handler.Handle();
                 handler.Dispose();
-                if (((Command)deserializedCommand).CompressResult)
+                if ((deserializedCommand as Command).CompressResult)
                 {
                     byte[] byteArray = commandResult.ToByteArray();
                     object compressed = ObjectCompressor.Compress(byteArray);
