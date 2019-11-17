@@ -26,7 +26,7 @@ namespace ISDynamicTeam.HotPoint.WebAPI.Routers
         public Type GetHandler<T>(string commandName) where T : ICommandHandler
         {
             return routingDictionary
-                .Where(key => key.Key.Name.StartsWith(commandName))
+                .Where(kvp => kvp.Key.Name.StartsWith(commandName))
                 .FirstOrDefault()
                 .Value;
         }
@@ -34,7 +34,7 @@ namespace ISDynamicTeam.HotPoint.WebAPI.Routers
         public Type GetCommandType(string commandName)
         {
             return routingDictionary
-                .Where(key => key.Key.Name.StartsWith(commandName))
+                .Where(kvp => kvp.Key.Name.StartsWith(commandName))
                 .FirstOrDefault()
                 .Key; 
         }

@@ -7,7 +7,6 @@ namespace ISDynamicTeam.HotPoint.Server
         public GetRestaurantsByNameCommand() {
            
         }
-
         public new GetRestaurantsByNameCommandParameters CommandParameters { get; set; }
     }
 }

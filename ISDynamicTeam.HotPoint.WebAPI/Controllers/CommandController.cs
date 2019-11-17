@@ -32,22 +32,23 @@ namespace ISDynamicTeam.HotPoint.WebAPI.Controllers
             JObject cmd = command as JObject;
             string commandName = cmd.GetValue("CommandName").Value<string>();
 
-            Type commandType =  CommandRouter.GetCommandType(commandName);
-            Type commandHandler = CommandRouter.GetHandler<CommandHandler>(commandName);
+            Type commandType    =  CommandRouter.GetCommandType(commandName);
+            Type commandHandler =  CommandRouter.GetHandler<CommandHandler>(commandName);
 
             object deserializedCommand = cmd.ToObject(commandType);
             return await Task.Run(() =>
             {
                 CommandHandler handler = Activator.CreateInstance(commandHandler, new object[] { deserializedCommand }) as CommandHandler;
-                ICommandResult commandResult = handler.Handle();
-                handler.Dispose();
-                if ((deserializedCommand as Command).CompressResult)
+                using (ICommandResult commandResult = handler.Handle())
                 {
-                    byte[] byteArray = commandResult.ToByteArray();
-                    object compressed = ObjectCompressor.Compress(byteArray);
-                    return compressed;
+                    if ((deserializedCommand as Command).CompressResult)
+                    {
+                        byte[] byteArray = commandResult.ToByteArray();
+                        object compressed = ObjectCompressor.Compress(byteArray);
+                        return compressed;
+                    }
+                    return commandResult;
                 }
-                return commandResult;
             });
         }
 
