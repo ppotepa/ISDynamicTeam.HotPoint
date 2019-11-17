@@ -3,8 +3,6 @@ using System;
 
 namespace ISDynamicTeam.HotPoint.WebAPI.Commands
 {
-    public interface ICommand
-    {
-        
-    }
+    public interface ICommand { };
+   
 }

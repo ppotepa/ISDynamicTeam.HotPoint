@@ -8,9 +8,22 @@ namespace ISDynamicTeam.HotPoint.WebAPI.Helpers
 {
     public class GUIDHelper
     {
-        public static IEnumerable<Guid> GetRandomNumberOfGuids() {
-            short range = (short) new Random().Next(Int16.MaxValue);
-            return Enumerable.Range(0, range).Select(el => Guid.NewGuid());
+        //public static IEnumerable<Guid> GetRandomNumberOfGuids()
+        //{
+        //    short range = (short)new Random().Next(Int16.MaxValue);
+        //    return Enumerable.Range(0, range).Select(el => Guid.NewGuid());
+        //}
+
+        public static IEnumerable<Guid> GetNumberOfGuid(int count)
+        {
+            List<Guid> result = new List<Guid>();
+            for (var i = 0; i < count; i++) result.Add(Guid.NewGuid());
+            return result;
+        }
+
+        internal static IEnumerable<Guid> GetRandomNumberOfGuids()
+        {
+            throw new NotImplementedException();
         }
     }
 }

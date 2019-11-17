@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ISDynamicTeam.HotPoint.WebAPI.Commands
 {
-    public class GetRandomNumberCommand : Command
+    public class GetRandomNumberCommand : ICommand
     {
+        public int RandomNumber { get; private set; } = new Random().Next(int.MaxValue);
         public GetRandomNumberCommand() {
            
         }

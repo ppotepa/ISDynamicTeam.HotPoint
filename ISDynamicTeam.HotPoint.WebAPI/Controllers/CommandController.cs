@@ -1,9 +1,14 @@
 ﻿using ISDynamicTeam.HotPoint.WebAPI.Commands;
 using ISDynamicTeam.HotPoint.WebAPI.Const;
-using ISDynamicTeam.HotPoint.WebAPI.Functions;
+using ISDynamicTeam.HotPoint.WebAPI.Extensions;
+using ISDynamicTeam.HotPoint.WebAPI.Handlers;
+using ISDynamicTeam.HotPoint.WebAPI.Handlers.Get;
+using ISDynamicTeam.HotPoint.WebAPI.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ISDynamicTeam.HotPoint.WebAPI.Controllers
@@ -13,23 +18,39 @@ namespace ISDynamicTeam.HotPoint.WebAPI.Controllers
     public class CommandController : ControllerBase
     {
 
-        private static IDictionary<Type, Func<ICommand, ICommandResult>> CommandRouter =
+        private static IDictionary<Type, Type> CommandRouter =
 
-            new Dictionary<Type, Func<ICommand, ICommandResult>>
+            new Dictionary<Type, Type>
             {
-                 { typeof(GetRandomNumberCommand),  CommandHandlers.GetRandomNumberCommandHandler },
-                 { typeof(GetNearbyPlacesCommand),  CommandHandlers.GetNearbyPlacesHandler },
-                 { typeof(GetRandomNumberOfGuidsCommand),  CommandHandlers.GetRandomNumberOfGuidsHandler },
+                 {  typeof(GetRandomNumberOfGuidsCommand), typeof(GetRandomNumberOfGuidsCommandHandler)},
             };
 
-        // GET api/values
-        [HttpPost]
+
+        [HttpGet]
         [Route("execute")]
-        public async Task<ICommandResult> ExecuteCommand(string commandName)
+        public async Task<object> ExecuteCommand(object command)
         {
-            Command targetCommand = CommandActivator.FromCommandName(commandName);
-            var targetCommandType = targetCommand.GetType();
-            return await Task.Run(() => {  return  CommandRouter[targetCommandType](targetCommand); });
+            JObject cmd = ((JObject)command);
+
+            string targetName = cmd.GetValue("CommandName").Value<string>();
+
+            Type targetCommandType = CommandInstanceHelper.GetTypeByName(targetName);
+            object deserializedCommand = cmd.ToObject(targetCommandType);
+            Type routedType = CommandRouter[targetCommandType];
+
+            return await Task.Run(() =>
+            {
+                Handler handler = (Handler)Activator.CreateInstance(routedType, new object[] { (ICommand)deserializedCommand });                
+                ICommandResult commandResult = handler.Handle();
+                handler.Dispose();
+                if (((Command)deserializedCommand).CompressResult)
+                {
+                    byte[] byteArray = commandResult.ToByteArray();
+                    return ObjectCompressor.Compress(byteArray);
+                }
+                return commandResult;
+            });
         }
+
     }
 }
